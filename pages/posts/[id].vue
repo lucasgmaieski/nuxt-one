@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { posts } from '~/data/PostData';
 definePageMeta({
     middleware: "post",
 })
@@ -19,7 +20,17 @@ const { daysElapsed, difInDays } = useFormated();
 
 const datePostExample = new Date(2024, 7, 1);
 
-daysElapsed(datePostExample)
+daysElapsed(datePostExample);
+const post = posts.find( post => post.id == +idParams.value)
+useHead({
+  title: post?.title,
+  meta: [
+    { name: 'description', content: post?.description }
+  ],
+  bodyAttrs: {
+    class: 'single-post'
+  },
+})
 </script>
 
 <style scoped>
